@@ -1,5 +1,23 @@
 # README
 
+## Assignment Details
+
+There are 3 tasks to this assignment:
+
+1. Fix the priority picker on the front end that updates the backend in real time.  It currently updates in the front end but does not persist in the backend.  (This is the little circle beside each Key Activity)
+Video demo: https://drive.google.com/file/d/1v4vqNCs-_obXxv635fz9dT4szDW9WQEH/view?usp=sharing
+
+2. Add a new sort in the current sort dropdown to allow for a sort that is based on "due date first and then priority"
+Video demo: https://drive.google.com/file/d/1AEHufgA0RyASgQv64jE4oklU-7eoFd3Z/view?usp=sharing
+
+3. Create another component separate from HomeKeyActivities that will retrieve all completed Key activities and do not allow them to be editable and display them in a paginated format with a limit of 2 items per page.
+
+BONUS: point out and put in some good code cleanup.
+
+## Submission
+
+When your code is ready please make please make a private gist and include any of the key file changes for us that you've done.  This will be multiple files given the nature of the questions.
+
 ## Setup
 
 This project uses a rails backend and a react / mobx-state-tree front end.
@@ -47,4 +65,5 @@ bin/webpack-dev-server
 
 Now if you go to localhost:3000 you should be off to the races.
 
-## Assignment Details
+
+
