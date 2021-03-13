@@ -7,8 +7,26 @@ There are 3 tasks to this assignment:
 1. Fix the priority picker on the front end that updates the backend in real time.  It currently updates in the front end but does not persist in the backend.  (This is the little circle beside each Key Activity)
 Video demo: https://drive.google.com/file/d/1v4vqNCs-_obXxv635fz9dT4szDW9WQEH/view?usp=sharing
 
+Please refer to:
+```
+For the home components: app/javascript/domains//home/*
+For individual components related to key activities: /app/javascript/components/domains/key-activities/*
+```
+
+
 2. Add a new sort in the current sort dropdown to allow for a sort that is based on "due date first and then priority"
 Video demo: https://drive.google.com/file/d/1AEHufgA0RyASgQv64jE4oklU-7eoFd3Z/view?usp=sharing
+
+Please refer to:
+```
+Front end components:
+For components: /app/javascript/components/domains/key-activities/*
+
+Backend portion: 
+app/services/key_activity_resort_service.rb
+spec/services/key_activity_resort_service_spec.rb
+```
+
 
 3. Create another component separate from HomeKeyActivities that will retrieve all completed Key activities and do not allow them to be editable and display them in a paginated format with a limit of 2 items per page.
 
