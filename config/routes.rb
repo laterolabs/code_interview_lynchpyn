@@ -5,6 +5,9 @@ Rails.application.routes.draw do
     resources :key_activities, only: [:index, :create, :update, :destroy]
     patch '/key_activities', to: "key_activities#resort"
 
+    resources :key_activities, only: [:list]
+    get '/key_activities/list', to: "key_activities#list"
+
     resources :users, only: [:index]
     get '/profile', to: 'users#profile'
   end

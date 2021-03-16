@@ -24,7 +24,10 @@ RSpec.describe KeyActivityResortService do
       expect(KeyActivity.where(scheduled_group: scheduled_group_tomorrow.id).sort_by_position).to eq([kat0, kat1])
     end
 
-    it "resorts items by due date and priority if selected to do so"
-
+    it "resorts items by due date and priority if selected to do so" do
+      KeyActivityResortService.call(KeyActivity.all, "by_due_date_and_priority", scheduled_group_today.id)
+      expect(KeyActivity.where(scheduled_group: scheduled_group_today).sort_by_position).to eq([ka4,ka1,ka2,ka3,ka0])
+      expect(KeyActivity.where(scheduled_group: scheduled_group_tomorrow.id).sort_by_position).to eq([kat0, kat1])
+    end
   end
 end

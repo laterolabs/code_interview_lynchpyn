@@ -2,19 +2,21 @@ import * as React from "react";
 import styled from "styled-components";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { KeyActivityRecord } from "~/components/shared/issues-and-key-activities/key-activity-record";
+import { PaginatedKeyActivityRecord  } from "~/components/shared/issues-and-key-activities/paginated-key-activity-record";
 
 interface IKeyActivitiesListProps {
   keyActivities: Array<any>;
   droppableId: string;
+  paginated?: boolean;
 }
 
 export const KeyActivitiesList = ({
   keyActivities,
   droppableId,
+  paginated
 }: IKeyActivitiesListProps): JSX.Element => {
   const splittedDroppableId = droppableId.split("-");
   const updateId = splittedDroppableId[splittedDroppableId.length - 1];
-
   const renderKeyActivitiesList = () => {
     return keyActivities.map((keyActivity, index) => {
       const draggableId = () => {
@@ -39,10 +41,17 @@ export const KeyActivitiesList = ({
               {...provided.draggableProps}
               {...provided.dragHandleProps}
             >
-              <KeyActivityRecord
+              {paginated ? (
+                  <PaginatedKeyActivityRecord
+                  keyActivity={keyActivity}
+                  dragHandleProps={...provided.dragHandleProps}
+                  />
+                ):(<KeyActivityRecord
                 keyActivity={keyActivity}
                 dragHandleProps={...provided.dragHandleProps}
-              />
+                />)}
+                
+              
             </KeyActivityContainer>
           )}
         </Draggable>

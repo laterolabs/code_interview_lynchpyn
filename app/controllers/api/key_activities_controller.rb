@@ -8,6 +8,17 @@ class Api::KeyActivitiesController < Api::ApplicationController
     render "api/key_activities/index"
   end
 
+  def list
+    @key_activities = KeyActivity.paginate(page: params[:page], per_page: 2)
+    .sort_by_position
+
+     render json: { 
+        key_activities: @key_activities,
+        page: @key_activities.current_page, 
+        pages: @key_activities.total_pages,
+     }
+  end
+
   def create
     @key_activity = KeyActivity.new(key_activity_params)
     @key_activity.insert_at(1)

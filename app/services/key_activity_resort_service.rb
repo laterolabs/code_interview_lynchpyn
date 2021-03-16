@@ -7,13 +7,15 @@ class KeyActivityResortService < ApplicationService
     @sort_type = sort_type
     @scheduled_group_id = scheduled_group_id
   end
-
+  #key_activities.paginate(:page => params[:page], :per_page => 15)
   def call
     case @sort_type
     when "by_priority"
       sorted_key_activities = @key_activities.is_in_scheduled_group_id(scheduled_group_id).sort_by_priority.sort_by_created_date
     when "by_due_date"
       sorted_key_activities = @key_activities.is_in_scheduled_group_id(scheduled_group_id).sort_by_due_date.sort_by_created_date
+    when "by_due_date_and_priority"
+      sorted_key_activities = @key_activities.is_in_scheduled_group_id(scheduled_group_id).sort_by_due_date_and_priority.sort_by_created_date
     end
     reset_positions(sorted_key_activities)
   end
