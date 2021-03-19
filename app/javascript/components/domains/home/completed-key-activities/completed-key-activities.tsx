@@ -6,11 +6,7 @@ import { useMst } from "~/setup/root";
 import { KeyActivitiesList } from "../../key-activities/key-activities-list";
 import * as R from "ramda";
 import ReactPaginate from "react-paginate";
-import * as moment from "moment";
-import {CreateKeyActivityButton} from "~/components/domains/key-activities/create-key-activity-button";
-import {CreateKeyActivityModal} from "~/components/domains/key-activities/create-key-activity-modal";
-import {Heading, Icon} from "~/components/shared";
-import {FilterDropdown} from "~/components/domains/key-activities/filter-dropdown";
+import { Heading } from "~/components/shared";
 
 export const CompletedKeyActivities = observer(
   (): JSX.Element => {

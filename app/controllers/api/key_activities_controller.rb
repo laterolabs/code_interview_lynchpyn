@@ -51,8 +51,6 @@ class Api::KeyActivitiesController < Api::ApplicationController
   end
 
   def completed
-    completed_key_activities = KeyActivity.owned_by_user(current_user).completed.paginate(page: params[:page])
-
     render json: {
       key_activities: completed_key_activities,
       page: completed_key_activities.current_page,
@@ -68,5 +66,9 @@ class Api::KeyActivitiesController < Api::ApplicationController
 
   def set_key_activity
     @key_activity = KeyActivity.find(params[:id])
+  end
+
+  def completed_key_activities
+    @completed_key_activities ||= KeyActivity.owned_by_user(current_user).completed.paginate(page: params[:page])
   end
 end

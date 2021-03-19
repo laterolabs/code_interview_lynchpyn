@@ -58,12 +58,6 @@ export const PaginatedKeyActivityRecord = observer(
       keyActivityStore.updateKeyActivity(keyActivity.id);
     };
 
-    const handleDescriptionChange = e => {
-      if (!e.target.value.includes("<div>")) {
-        keyActivityStore.updateKeyActivityState(keyActivity["id"], "description", e.target.value);
-      }
-    };
-
     const dueDateObj = parseKeyActivityDueDate(keyActivity);
 
     const updateDueDate = date => {
