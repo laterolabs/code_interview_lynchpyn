@@ -55,6 +55,7 @@ export const KeyActivityRecord = observer(
           priority = "";
       }
       keyActivityStore.updateKeyActivityState(keyActivity.id, "priority", priority);
+      keyActivityStore.updateKeyActivity(keyActivity.id);
     };
 
     const handleDescriptionChange = e => {
