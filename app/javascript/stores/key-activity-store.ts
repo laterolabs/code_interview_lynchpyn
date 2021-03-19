@@ -12,6 +12,9 @@ export const KeyActivityStoreModel = types
     keyActivities: types.array(KeyActivityModel),
     loading: types.maybeNull(types.boolean),
     loadingList: types.maybeNull(types.string),
+    paginatedKeyActivities: types.array(KeyActivityModel),
+    currentPage: types.maybeNull(types.number),
+    totalPages: types.maybeNull(types.number),
   })
   .extend(withEnvironment())
   .views(self => ({
@@ -45,6 +48,9 @@ export const KeyActivityStoreModel = types
           (!R.isNil(keyActivity.completedAt) &&
             new Date(keyActivity.movedToTodayOn).getDate() < today),
       );
+    },
+    get allKeyActivities() {
+      return self.paginatedKeyActivities.filter(keyActivity => keyActivity.id);
     },
   }))
   .views(self => ({
@@ -162,6 +168,18 @@ export const KeyActivityStoreModel = types
         return false;
       }
     }),
+    getCompletedKeyActivities: flow(function*(page) {
+      const response: ApiResponse<any> = yield self.environment.api.getCompletedKeyActivities(page);
+      self.finishLoading();
+      if (response.ok) {
+        self.paginatedKeyActivities = response.data.keyActivities
+        self.currentPage = response.data.page
+        self.totalPages = response.data.pages
+        return true;
+      }else {
+        return false;
+      }
+    }),
   }))
   .actions(self => ({
     updateKeyActivityState(id, field, value) {
@@ -175,6 +193,7 @@ export const KeyActivityStoreModel = types
     load: flow(function*() {
       self.reset();
       yield self.fetchKeyActivities();
+      yield self.getCompletedKeyActivities({page: 1});
     }),
   }));
 

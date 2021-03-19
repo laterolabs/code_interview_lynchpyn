@@ -7,6 +7,8 @@ class KeyActivity < ApplicationRecord
 
   acts_as_list scope: [:user_id, :scheduled_group_id]
 
+  self.per_page = 2
+
   scope :optimized, -> { includes([:user]) }
   scope :created_by_user, -> (user) { where(user: user) }
   scope :sort_by_priority, -> { order(priority: :desc) }
@@ -22,4 +24,5 @@ class KeyActivity < ApplicationRecord
     ScheduledGroup.find_by_name("Weekly List").id,
     ScheduledGroup.find_by_name("Backlog").id
     ]).sort_by_position}
+  scope :completed, -> { where.not(completed_at: nil).sort_by_position }
 end

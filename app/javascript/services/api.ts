@@ -65,5 +65,9 @@ export class Api {
     return this.client.patch(`key_activities`, sortParams);
   }
 
+  async getCompletedKeyActivities(params) {
+    return this.client.get("/key_activities/completed", params);
+  }
+
   //async setJWT(jwt) {}
 }

@@ -19,6 +19,7 @@ import { useMst } from "../setup/root";
 import styled from "styled-components";
 
 import { HomeContainer } from "./domains/home/home-container";
+import { CompletedKeyActivitiesContainer } from "./domains/home/completed-key-activities-container";
 import { IKeyActivityStore } from "../stores/key-activity-store";
 import { ModalProvider } from "styled-react-modal";
 import { Toaster } from "./shared/toaster";
@@ -108,6 +109,7 @@ export const App = observer(
                 <>
                   <Container>
                     <Route exact path="/" component={HomeContainer} />
+                    <Route exact path="/" component={CompletedKeyActivitiesContainer} />
                   </Container>
                 </>
               </Route>
