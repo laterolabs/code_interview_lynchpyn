@@ -86,7 +86,9 @@ export const PaginatedKeyActivityRecord = observer(
                 color: baseTheme.colors.primary100,
               }}
               onChange={e => {
-                keyActivityStore.updateKeyActivityStatus(keyActivity, e.target.checked);
+                if (!disabled) {
+                  keyActivityStore.updateKeyActivityStatus(keyActivity, e.target.checked);
+                }
               }}
             />
           </CheckboxContainer>
@@ -121,7 +123,9 @@ export const PaginatedKeyActivityRecord = observer(
         <BottomRowContainer>
           <KeyActivityPriorityContainer
             onClick={() => {
-              updatePriority();
+              if (!disabled) {
+                updatePriority();
+              }
             }}
           >
             <KeyActivityPriorityIcon priority={keyActivity.priority} />
@@ -146,8 +150,10 @@ export const PaginatedKeyActivityRecord = observer(
                 <DateButtonDiv>
                   <DateButton
                     onClick={() => {
-                      setShowDatePicker(true);
-                      setSelectedDueDate(new Date(parseISO(keyActivity.dueDate)));
+                      if (!disabled) {
+                        setShowDatePicker(true);
+                        setSelectedDueDate(new Date(parseISO(keyActivity.dueDate)));
+                      }
                     }}
                     text={dueDateObj.text}
                     displayColor={dueDateObj.color}
@@ -172,16 +178,20 @@ export const PaginatedKeyActivityRecord = observer(
                   rangeColors={[baseTheme.colors.primary80]}
                   date={selectedDueDate}
                   onChange={date => {
-                    setSelectedDueDate(date);
-                    updateDueDate(date);
+                    if (!disabled) {
+                      setSelectedDueDate(date);
+                      updateDueDate(date);
+                    }
                   }}
                 />
                 <Button
                   variant={"primary"}
                   small
                   onClick={() => {
-                    setSelectedDueDate(null);
-                    updateDueDate(null);
+                    if (!disabled) {
+                      setSelectedDueDate(null);
+                      updateDueDate(null);
+                    }
                   }}
                   mx={"auto"}
                   my={"8px"}

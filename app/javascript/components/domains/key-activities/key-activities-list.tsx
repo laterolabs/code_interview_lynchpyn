@@ -8,14 +8,14 @@ interface IKeyActivitiesListProps {
   keyActivities: Array<any>;
   droppableId: string;
   paginated?: boolean;
-  isDisabledDraggable?: boolean;
+  disableEditing?: boolean;
 }
 
 export const KeyActivitiesList = ({
   keyActivities,
   droppableId,
   paginated,
-  isDisabledDraggable,
+  disableEditing,
 }: IKeyActivitiesListProps): JSX.Element => {
   const splittedDroppableId = droppableId.split("-");
   const updateId = splittedDroppableId[splittedDroppableId.length - 1];
@@ -36,7 +36,7 @@ export const KeyActivitiesList = ({
           index={index}
           key={keyActivity["id"]}
           type={"keyActivity"}
-          isDragDisabled={isDisabledDraggable}
+          isDragDisabled={disableEditing}
         >
           {provided => (
             <KeyActivityContainer
@@ -49,6 +49,7 @@ export const KeyActivitiesList = ({
                 <PaginatedKeyActivityRecord
                   keyActivity={keyActivity}
                   dragHandleProps={...provided.dragHandleProps}
+                  disabled={disableEditing}
                 />
               ):(<KeyActivityRecord
                 keyActivity={keyActivity}
