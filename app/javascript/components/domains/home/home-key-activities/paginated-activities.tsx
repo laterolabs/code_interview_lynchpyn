@@ -6,7 +6,9 @@ import { observer } from "mobx-react";
 import { useMst } from "~/setup/root";
 import { KeyActivitiesList } from "../../key-activities/key-activities-list";
 import * as R from "ramda";
-import ReactPaginate from "react-paginate";
+// import ReactPaginate from "react-paginate";
+import ReactPaginate from '@material-ui/lab/Pagination';
+
 export interface IHomeKeyActivities {
   todayOnly?: boolean;
 }
@@ -28,8 +30,9 @@ export const PaginatedActivities = observer(
       scheduledGroups.find(group => group.name == "Today"),
     );
 
-    const handlePageClick = ({ selected: selectedPage }) => {
-      keyActivityStore.fetchAllKeyActivities({ page: selectedPage + 1 });
+    const handlePageClick = (event, value) => {
+      console.log(event,value ,"event--")
+      keyActivityStore.fetchAllKeyActivities({ page: value });
     };
 
     const showKeyActivities = () => {
@@ -46,7 +49,9 @@ export const PaginatedActivities = observer(
             droppableId={`todays-activities-${todayFilterGroupId}`}
             paginated={true}
           />
-          <ReactPaginate
+        <ReactPaginate count={keyActivityStore.totalPages} page={keyActivityStore.currentPage} onChange={handlePageClick} />
+
+          {/* <ReactPaginate
             previousLabel={"← Previous"}
             nextLabel={"Next →"}
             breakLabel={"..."}
@@ -57,7 +62,7 @@ export const PaginatedActivities = observer(
             containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}
-          />
+          /> */}
         </div>
       );
     }

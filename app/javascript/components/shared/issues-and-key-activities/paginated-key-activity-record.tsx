@@ -104,7 +104,6 @@ export const PaginatedKeyActivityRecord = observer(
                textDecoration: keyActivity.completedAt && "line-through",
                cursor: "text",
              }}
-             // onBlur={() => keyActivityStore.updateKeyActivity(keyActivity.id)}
            />
  
            {keyActivity.personal && <Icon icon={"Lock"} size={18} iconColor={"mipBlue"} />}
