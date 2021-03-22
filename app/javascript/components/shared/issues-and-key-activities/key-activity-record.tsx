@@ -54,7 +54,14 @@ export const KeyActivityRecord = observer(
         default:
           priority = "";
       }
-      keyActivityStore.updateKeyActivityState(keyActivity.id, "priority", priority);
+      keyActivityStore.updateKeyActivityState(keyActivity["id"], "priority", priority);
+     
+     //To do :
+      /** this is a separation of concern and it works for two reasons. 
+      The function should update the UI eagerly instead of wait for a response from the DB before updating the UI
+      We can make it better by reversing the UI change incase of a failure on the backend.
+       */
+      keyActivityStore.updateKeyActivity(keyActivity.id);
     };
 
     const handleDescriptionChange = e => {

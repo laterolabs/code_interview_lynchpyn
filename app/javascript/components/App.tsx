@@ -19,6 +19,7 @@ import { useMst } from "../setup/root";
 import styled from "styled-components";
 
 import { HomeContainer } from "./domains/home/home-container";
+import { ActivityListContainer } from "./domains/home/activity-list"
 import { IKeyActivityStore } from "../stores/key-activity-store";
 import { ModalProvider } from "styled-react-modal";
 import { Toaster } from "./shared/toaster";
@@ -104,10 +105,11 @@ export const App = observer(
             <Toaster position="bottom-right" />
 
             <Switch>
-              <Route exact path={["/"]}>
+              <Route path={["/"]}>
                 <>
                   <Container>
                     <Route exact path="/" component={HomeContainer} />
+                    <Route exact path="/paginated" component={ActivityListContainer} />
                   </Container>
                 </>
               </Route>

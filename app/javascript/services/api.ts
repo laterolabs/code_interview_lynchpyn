@@ -38,6 +38,10 @@ export class Api {
     return this.client.get("/key_activities");
   }
 
+  async getKeyActivitiesList(query) {
+    return this.client.get("/key_activities/list", query);
+  }
+
   async profile() {
     return this.client.get("/profile");
   }

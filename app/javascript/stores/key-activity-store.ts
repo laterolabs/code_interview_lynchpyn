@@ -10,6 +10,9 @@ export const KeyActivityStoreModel = types
   .model("KeyActivityStoreModel")
   .props({
     keyActivities: types.array(KeyActivityModel),
+    paginatedKeyActivities: types.array(KeyActivityModel),
+    currentPage: types.maybeNull(types.number),
+    totalPages: types.maybeNull(types.number),
     loading: types.maybeNull(types.boolean),
     loadingList: types.maybeNull(types.string),
   })
@@ -29,6 +32,9 @@ export const KeyActivityStoreModel = types
   .views(self => ({
     get completedActivities() {
       return self.keyActivities.filter(keyActivity => keyActivity.completedAt);
+    },
+      get allActivities() {
+      return self.paginatedKeyActivities.filter(keyActivity => keyActivity.id);
     },
     get completedToday() {
       const today = new Date().getDate();
@@ -99,6 +105,19 @@ export const KeyActivityStoreModel = types
       self.finishLoading();
       if (response.ok) {
         self.keyActivities = response.data;
+      }
+    }),
+    fetchAllKeyActivities: flow(function*(page) {
+      const response: ApiResponse<any> = yield self.environment.api.getKeyActivitiesList(page);
+      self.finishLoading();
+      /* we need the finishLoading above for loading spinners and the react views */
+      if (response.ok) {
+        self.paginatedKeyActivities = response.data.keyActivities
+        self.currentPage = response.data.page
+        self.totalPages = response.data.pages
+        return true;
+      }else {
+        return false
       }
     }),
     updateKeyActivityStatus: flow(function*(keyActivity, value) {
@@ -175,6 +194,7 @@ export const KeyActivityStoreModel = types
     load: flow(function*() {
       self.reset();
       yield self.fetchKeyActivities();
+      yield self.fetchAllKeyActivities({page: 1, per_page: 2});
     }),
   }));
 
