@@ -14,6 +14,7 @@ class KeyActivity < ApplicationRecord
   scope :owned_by_user, -> (user) { where(user: user) }
   scope :sort_by_position, -> { order(:position) }
   scope :sort_by_due_date, -> { order(due_date: :asc) }
+  scope :completed, -> { where.not(completed_at: nil).sort_by_position }
   scope :sort_by_due_date_and_priority,-> { order(due_date: :asc, priority: :desc) }
   scope :is_in_scheduled_group_id, -> (scheduled_group_id) { where(scheduled_group_id: scheduled_group_id)}
   scope :sort_by_progressing_non_backlog_position, -> { order_by_related_ids('scheduled_group_id', [

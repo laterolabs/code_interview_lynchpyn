@@ -110,6 +110,7 @@ export const KeyActivityStoreModel = types
     fetchAllKeyActivities: flow(function*(page) {
       const response: ApiResponse<any> = yield self.environment.api.getKeyActivitiesList(page);
       self.finishLoading();
+      /* we need the finishLoading above for loading spinners and the react views */
       if (response.ok) {
         self.paginatedKeyActivities = response.data.keyActivities
         self.currentPage = response.data.page
@@ -193,7 +194,7 @@ export const KeyActivityStoreModel = types
     load: flow(function*() {
       self.reset();
       yield self.fetchKeyActivities();
-      yield self.fetchAllKeyActivities({page: 1});
+      yield self.fetchAllKeyActivities({page: 1, per_page: 2});
     }),
   }));
 

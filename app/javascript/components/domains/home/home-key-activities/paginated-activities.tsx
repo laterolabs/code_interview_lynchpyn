@@ -22,7 +22,7 @@ export const PaginatedActivities = observer(
     const { loading } = keyActivityStore;
 
     useEffect(() => {
-      keyActivityStore.fetchAllKeyActivities({ page: 1 });
+      keyActivityStore.fetchAllKeyActivities({ page: 1, per_page: 2 });
     }, []);
 
     const todayFilterGroupId = R.path(
@@ -31,8 +31,7 @@ export const PaginatedActivities = observer(
     );
 
     const handlePageClick = (event, value) => {
-      console.log(event,value ,"event--")
-      keyActivityStore.fetchAllKeyActivities({ page: value });
+      keyActivityStore.fetchAllKeyActivities({ page: value, per_page: 2 });
     };
 
     const showKeyActivities = () => {
@@ -50,19 +49,6 @@ export const PaginatedActivities = observer(
             paginated={true}
           />
         <ReactPaginate count={keyActivityStore.totalPages} page={keyActivityStore.currentPage} onChange={handlePageClick} />
-
-          {/* <ReactPaginate
-            previousLabel={"← Previous"}
-            nextLabel={"Next →"}
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            pageCount={keyActivityStore.totalPages}
-            initialPage={0}
-            onPageChange={handlePageClick}
-            containerClassName={"pagination"}
-            subContainerClassName={"pages pagination"}
-            activeClassName={"active"}
-          /> */}
         </div>
       );
     }

@@ -7,7 +7,7 @@ class KeyActivityResortService < ApplicationService
     @sort_type = sort_type
     @scheduled_group_id = scheduled_group_id
   end
-  #key_activities.paginate(:page => params[:page], :per_page => 15)
+
   def call
     case @sort_type
     when "by_priority"

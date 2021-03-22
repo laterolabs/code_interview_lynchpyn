@@ -8,8 +8,10 @@ class Api::KeyActivitiesController < Api::ApplicationController
     render "api/key_activities/index"
   end
 
+  #I did not use self.per_page = 2 in the body to keep the this dynamic. 
+  # We should be able to pass the number of pages as parameter too
   def list
-    @key_activities = KeyActivity.paginate(page: params[:page], per_page: 2)
+    @key_activities = KeyActivity.completed.paginate(page: params[:page], per_page: params[:per_page])
     .sort_by_position
 
      render json: { 
